@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: ${APPLICATION_NAME:contacts}
+  h2:
+    console:
+      path: /h2/console
+      enabled: true
+  datasource:
+    url: jdbc:h2:mem:contactsdb
+    username: contacts
+    password: contacts
+server:
+  port: ${PORT:8080}
+
+
