@@ -3,6 +3,11 @@ package com.exercise.contacts.services;
 import com.exercise.contacts.models.ContactModel;
 import com.exercise.contacts.repositories.ContactsRepository;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.criteria.Predicate;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,6 +36,49 @@ public class ContactsService {
         contactsRepository.deleteById(id);
     }
 
+    //Search feature
+    public List<ContactModel> search(String firstName,
+                                     String secondName,
+                                     String address,
+                                     Integer from,
+                                     Integer to){
+        return contactsRepository.findAll((root, query, cb) -> {
+            List<Predicate> predicates = new ArrayList<>();
 
+            if (firstName != null) {
+                predicates.add(cb.equal(root.get("firstName"), firstName));
+            }
+            if (secondName != null) {
+                predicates.add(cb.equal(root.get("secondName"), secondName));
+            }
+            if (from != null && to != null) {
+                Calendar calendarTo = Calendar.getInstance();
+                calendarTo.add(Calendar.YEAR, -to);
+                Date maxBirthDate = calendarTo.getTime();
+
+                Calendar calendarFrom = Calendar.getInstance();
+                calendarFrom.add(Calendar.YEAR, -from);
+                Date minBirthDate = calendarFrom.getTime();
+
+                predicates.add(cb.between(root.get("birthDate"), maxBirthDate, minBirthDate));
+            }
+            else if (from != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.YEAR, -from);
+                Date minBirthDate = calendar.getTime();
+
+                predicates.add(cb.lessThanOrEqualTo(root.get("birthDate"), minBirthDate));
+            }
+            else if (to != null) {
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.YEAR, -to);
+                Date maxBirthDate = calendar.getTime();
+
+                predicates.add(cb.greaterThanOrEqualTo(root.get("birthDate"), maxBirthDate));
+            }
+
+            return cb.and(predicates.toArray(new Predicate[0]));
+        });
+    }
 
 }

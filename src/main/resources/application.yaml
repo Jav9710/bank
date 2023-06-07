@@ -9,7 +9,8 @@ spring:
     url: jdbc:h2:mem:contactsdb
     username: contacts
     password: contacts
+  jpa:
+    show-sql: true
+
 server:
   port: ${PORT:8080}
-
-

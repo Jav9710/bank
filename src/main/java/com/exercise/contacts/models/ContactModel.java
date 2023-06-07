@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +21,7 @@ public class ContactModel {
     private Long id;
     private String firstName;
     private String secondName;
-    private LocalDate birthDate;
+    private Date birthDate;
     @ElementCollection
     @MapKeyColumn(name = "address_name")
     @Column(name = "address")

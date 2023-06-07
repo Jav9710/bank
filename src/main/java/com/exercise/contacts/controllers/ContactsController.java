@@ -44,5 +44,16 @@ public class ContactsController {
         return ResponseEntity.ok(contactsService.save(contactModel));
     }
 
+    //Search feature
+    @GetMapping("/search")
+    public List<ContactModel> searchContacts(@RequestParam(required = false) String firstName,
+                                             @RequestParam(required = false) String secondName,
+                                             @RequestParam(required = false) String address,
+                                             @RequestParam(required = false) Integer from,
+                                             @RequestParam(required = false) Integer to) {
+        return contactsService.search( firstName, secondName, address, from, to);
+
+    }
+
 
 }
