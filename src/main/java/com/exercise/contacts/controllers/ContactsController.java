@@ -1,7 +1,6 @@
 package com.exercise.contacts.controllers;
 
 import com.exercise.contacts.models.ContactModel;
-import com.exercise.contacts.models.Filter;
 import com.exercise.contacts.services.ContactsService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

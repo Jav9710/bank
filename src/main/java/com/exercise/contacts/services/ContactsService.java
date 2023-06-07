@@ -1,12 +1,8 @@
 package com.exercise.contacts.services;
 
 import com.exercise.contacts.models.ContactModel;
-import com.exercise.contacts.models.Filter;
 import com.exercise.contacts.repositories.ContactsRepository;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,7 +27,7 @@ public class ContactsService {
         return contactsRepository.findById(id).get();
     }
 
-    public Void deleteById(Long id){
+    public void deleteById(Long id){
         contactsRepository.deleteById(id);
     }
 
