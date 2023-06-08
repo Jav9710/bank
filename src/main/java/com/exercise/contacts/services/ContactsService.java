@@ -4,11 +4,11 @@ import com.exercise.contacts.models.ContactModel;
 import com.exercise.contacts.repositories.ContactsRepository;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.criteria.Join;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import javax.persistence.criteria.Root;
+import java.util.*;
 
 @Service
 public class ContactsService {
@@ -39,6 +39,7 @@ public class ContactsService {
     //Search feature
     public List<ContactModel> search(String firstName,
                                      String secondName,
+                                     String kindAddress,
                                      String address,
                                      Integer from,
                                      Integer to){
@@ -75,6 +76,10 @@ public class ContactsService {
                 Date maxBirthDate = calendar.getTime();
 
                 predicates.add(cb.greaterThanOrEqualTo(root.get("birthDate"), maxBirthDate));
+            }
+            if (address != null) {
+                root.join("addresses").get("values");
+                predicates.add(cb.like(root.join("addresses").get("values"), "%" + address + "%"));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));

@@ -8,6 +8,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Entity
@@ -26,13 +27,13 @@ public class ContactModel {
     @MapKeyColumn(name = "address_name")
     @Column(name = "address")
     @CollectionTable(name = "address_contacts", joinColumns = @JoinColumn(name = "user_id"))
-    private Map<String, String> addresses;
+        private List<HashMap<String, String>> addresses;
 
     @ElementCollection
     @CollectionTable(name = "contacts_phones", joinColumns = @JoinColumn(name = "person_id"))
     @MapKeyColumn(name = "phone_name")
     @Column(name = "phone_number")
-    private Map<String, String> phones = new HashMap<>();
+    private List<Addresses> phones;
     private String photo;
 
 }

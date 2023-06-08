@@ -9,6 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/api/contacts")
+@CrossOrigin(origins = "http://localhost:8080")
 public class ContactsController {
 
     private final ContactsService contactsService;
@@ -48,10 +49,11 @@ public class ContactsController {
     @GetMapping("/search")
     public List<ContactModel> searchContacts(@RequestParam(required = false) String firstName,
                                              @RequestParam(required = false) String secondName,
+                                             @RequestParam(required = false) String kindAddress,
                                              @RequestParam(required = false) String address,
                                              @RequestParam(required = false) Integer from,
                                              @RequestParam(required = false) Integer to) {
-        return contactsService.search( firstName, secondName, address, from, to);
+        return contactsService.search( firstName, secondName, kindAddress, address, from, to);
 
     }
 

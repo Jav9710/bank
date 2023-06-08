@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>User Profile</title>
+</head>
+<body>
+<h1>Contact Profile</h1>
+<form>
+    <table>
+        <tr>
+            <td>First Name:</td>
+            <td><input type="text" name="firstName"></td>
+        </tr>
+        <tr>
+            <td>Second Name:</td>
+            <td><input type="text" name="secondName"></td>
+        </tr>
+        <tr>
+            <td>Birth Date:</td>
+            <td><input type="date" name="birthDate"></td>
+        </tr>
+        <tr>
+            <td>Address:</td>
+            <td>
+                <div id="address-container"></div>
+                <button id="add-address" type="button" class="add-item">Agregar</button>
+                <button id="delete-address" type="button" class="remove-item" style="display: none">Eliminar</button>
+            </td>
+        </tr>
+            <td>Phone:</td>
+            <td>
+                <div id="phone-container"></div>
+                <button id="add-phone" type="button" class="add-item">Agregar</button>
+                <button id="delete-phone" type="button" class="remove-item" style="display: none">Eliminar</button>
+            </td>
+        </tr>
+        <tr>
+            <td>Photo:</td>
+            <td><input type="text" name="photo"></td>
+        </tr>
+    </table>
+    <button type="submit" id="submit-form">Crear contacto</button>
+</form>
+<script src="contact.js"></script>
+</body>
+</html>

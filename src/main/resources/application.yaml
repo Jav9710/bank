@@ -11,6 +11,9 @@ spring:
     password: contacts
   jpa:
     show-sql: true
+  banner:
+    image:
+      location: classpath*:banner.txt
 
 server:
   port: ${PORT:8080}
