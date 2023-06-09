@@ -28,6 +28,9 @@ Endpoints:
 - POST /v1/api/contacts/upload/{id} (Multipart file) Sube una imagen y la asocia al Contacto con id {id} 
 - GET /v1/api/contacts/download (JSON) Devuelve la imagen correspondiente al path provisto en el json
 
+Imagen docker:
+-Tiene el plugin de spotify-maven para la construccion de la imagen
+
 Global:
 -Faltan los test unitarios y los mock de pruebas
 -Faltan validaciones del lado del Frontend y del Backend en cuanto a la fiabilidad de los datos ingresados por el usuario de la web
