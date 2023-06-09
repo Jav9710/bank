@@ -3,18 +3,18 @@ WEB:
 -Se encuentra el archivo index.html en la ruta src/main/web/html
 -Faltan los inputs para la busqueda por direcciones
 -Se estan consumiendo el api de crear contacto cuando se presiona el boton Home de la eweb contact.html, creando siempre repetido el ultimo contacto que se creo.
- Funcionalidades:
- -Pagina index.html:
+Funcionalidades:
+*Pagina index.html:
   -Contacts: muestra los Contactos en tabla que existen en la base de datos.
   -Delete: la tabla tiene en cada fila al principio los checkbox que permite seleccionar los elementos a borrar de la base de datos
   -Search: busca en la bd todos los contactos que coinciden con los inputs llenados
--Pagina contacts.html
- -Tiene los campos necesarios para crear un contacto: First Name, Second Name, Birthdate, Addresses, Phones, Photo
- -El boton agregar para la seccion Phones agrega nuevos inputs para añadir mas phone
- -El boton agregar para la seccion Addresses agrega nuevos inputs para añadir mas address
- -En cada caso aparece el boton eliminar para eliminar el ultimo address o phone que se añadio
- -Boton Crear contacto para crear el contacto
- -Boton Home regresar a index.html
+*Pagina contacts.html
+ +Tiene los campos necesarios para crear un contacto: First Name, Second Name, Birthdate, Addresses, Phones, Photo
+ +El boton agregar para la seccion Phones agrega nuevos inputs para añadir mas phone
+ +El boton agregar para la seccion Addresses agrega nuevos inputs para añadir mas address
+ +En cada caso aparece el boton eliminar para eliminar el ultimo address o phone que se añadio
+ +Boton Crear contacto para crear el contacto
+ +Boton Home regresar a index.html
  
  
 Backend:
