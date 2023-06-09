@@ -12,10 +12,12 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Addresses {
+public class Address {
+    private String name;
     private String country;
     private String state;
     private String city;
+    private String district;
     private String street;
     private String zip;
 

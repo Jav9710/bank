@@ -37,11 +37,15 @@
         </tr>
         <tr>
             <td>Photo:</td>
-            <td><input type="text" name="photo"></td>
+            <td><input type="file" id="image-input" name="photo"></td>
         </tr>
     </table>
-    <button type="submit" id="submit-form">Crear contacto</button>
+    <button type="submit" id="submit-form" name="submit-btn">Crear contacto</button>
+    <button id="go-back">Home</button>
+    <div id="mensaje-temporal">
+        <p style="display: none"></p>
+    </div>
 </form>
-<script src="contact.js"></script>
+<script src="../js/contact.js"></script>
 </body>
 </html>
