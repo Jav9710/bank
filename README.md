@@ -15,8 +15,9 @@ Pagina contacts.html
  2. El boton agregar para la seccion Phones agrega nuevos inputs para añadir mas phone
  3. El boton agregar para la seccion Addresses agrega nuevos inputs para añadir mas address
  4. En cada caso aparece el boton eliminar para eliminar el ultimo address o phone que se añadio
- 5. Boton Crear contacto para crear el contacto
- 6. Boton Home regresar a index.html
+ 5. Boton para cargar imagen
+ 6. Boton Crear contacto para crear el contacto
+ 7. Boton Home regresar a index.html
  
  
 Backend:
