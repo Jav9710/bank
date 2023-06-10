@@ -3,6 +3,7 @@ package com.exercise.contacts.services;
 import com.exercise.contacts.dto.ContactDTO;
 import com.exercise.contacts.exception.ResourceException;
 import com.exercise.contacts.mapper.ContactDTO2Model;
+import com.exercise.contacts.models.Address;
 import com.exercise.contacts.models.ContactModel;
 import com.exercise.contacts.repositories.ContactsRepository;
 import org.apache.commons.io.FileUtils;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Predicate;
 import java.io.File;
 import java.io.IOException;
@@ -24,6 +26,8 @@ import java.util.stream.StreamSupport;
 public class ContactsService {
     @Value("${upload.directory}")
     private String uploadDirectory;
+    private static final String ADDRESSES = "addresses";
+    private static final String BIRTHDATE = "birthDate";
     private final ContactsRepository contactsRepository;
     private final ContactDTO2Model contactDTO2Model;
     public ContactsService(ContactsRepository contactsRepository, ContactDTO2Model contactDTO2Model) {
@@ -70,13 +74,11 @@ public class ContactsService {
     //Search feature
     public List<ContactModel> search(String firstName,
                                      String secondName,
-                                     String kindAddress,
-                                     String address,
+                                     Address address,
                                      Integer from,
                                      Integer to){
-        return contactsRepository.findAll((root, query, cb) -> {
+        List<ContactModel> searchResult = contactsRepository.findAll((root, query, cb) -> {
             List<Predicate> predicates = new ArrayList<>();
-
             if (firstName != null) {
                 predicates.add(cb.equal(root.get("firstName"), firstName));
             }
@@ -91,30 +93,44 @@ public class ContactsService {
                 Calendar calendarFrom = Calendar.getInstance();
                 calendarFrom.add(Calendar.YEAR, -from);
                 Date minBirthDate = calendarFrom.getTime();
-
-                predicates.add(cb.between(root.get("birthDate"), maxBirthDate, minBirthDate));
+                predicates.add(cb.between(root.get(BIRTHDATE), maxBirthDate, minBirthDate));
             }
             else if (from != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, -from);
                 Date minBirthDate = calendar.getTime();
-
-                predicates.add(cb.lessThanOrEqualTo(root.get("birthDate"), minBirthDate));
+                predicates.add(cb.lessThanOrEqualTo(root.get(BIRTHDATE), minBirthDate));
             }
             else if (to != null) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.add(Calendar.YEAR, -to);
                 Date maxBirthDate = calendar.getTime();
-
-                predicates.add(cb.greaterThanOrEqualTo(root.get("birthDate"), maxBirthDate));
+                predicates.add(cb.greaterThanOrEqualTo(root.get(BIRTHDATE), maxBirthDate));
             }
-            if (address != null) {
-                root.join("addresses").get("values");
-                predicates.add(cb.like(root.join("addresses").get("values"), "%" + address + "%"));
+            Join<ContactModel, Address> addressJoin = root.join(ADDRESSES);
+            if (address.getName() != null) {
+                predicates.add(cb.like(addressJoin.get("name"), address.getName()));
+            }
+            if (address.getCountry() != null) {
+                predicates.add(cb.like(addressJoin.get("country"), address.getCountry()));
+            }
+            if (address.getState() != null) {
+                predicates.add(cb.like(addressJoin.get("state"), address.getState()));
+            }
+            if (address.getCity() != null) {
+                predicates.add(cb.like(addressJoin.get("city"), address.getCity()));
+            }
+            if (address.getStreet() != null) {
+                predicates.add(cb.like(addressJoin.get("street"), address.getStreet()));
+            }
+            if (address.getZip() != null) {
+                predicates.add(cb.like(addressJoin.get("zip"), address.getZip()));
             }
 
             return cb.and(predicates.toArray(new Predicate[0]));
         });
+        if (searchResult.isEmpty()) throw new ResourceException("There are no results for those search elements", HttpStatus.NOT_FOUND);
+        return searchResult;
     }
 
     public void savePhoto(MultipartFile file, Long id) throws IOException {
