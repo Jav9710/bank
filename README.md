@@ -21,7 +21,6 @@ Pagina contacts.html
  
  
 Backend:
--Falta la parte de busqueda por addresses
 Endpoints:
 - GET /v1/api/contacts Devuelve todos los contactos 
 - POST /v1/api/contacts (JSON) Crea un contacto 
